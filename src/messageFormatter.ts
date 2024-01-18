@@ -1,21 +1,18 @@
 import { Transform, TransformCallback } from 'node:stream'
+import Character from './character.js'
 
-interface Character {
-  name: string
-}
-
-interface formattedMessage {
+interface FormattedMessage {
   message: string
   level: string
 }
 export default class MessageFormatter extends Transform {
-  constructor(options?:any) {
-    super({ objectMode: true, ...options })
+  constructor(options?:object) {
+    super({ ...options, objectMode: true })
   }
 
   _transform(chunk: Character, encoding: BufferEncoding, nextObject: TransformCallback) {
-    const formattedMessage: formattedMessage = { message: chunk.name, level: 'info' }
-    this.push(formattedMessage)
+    const FormattedMessage: FormattedMessage = { message: chunk.name, level: 'info' }
+    this.push(FormattedMessage)
     nextObject()
   }
 }

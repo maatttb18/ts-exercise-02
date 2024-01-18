@@ -1,15 +1,12 @@
 import { Transform, TransformCallback } from 'node:stream'
-
-interface Character {
-  gender: string
-}
+import Character from './character.js'
 
 export default class FilterFemaleCharacter extends Transform {
-  constructor() {
-    super({ objectMode: true })
+  constructor(options?: object) {
+    super({ ...options, objectMode: true })
   }
 
-  _transform(chunk: Character, encoding: BufferEncoding, nextObject: TransformCallback) {
+  _transform(chunk: Character, encoding: BufferEncoding, nextObject: TransformCallback): void {
     if (chunk.gender === 'female') {
       this.push(chunk)
     }

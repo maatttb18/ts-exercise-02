@@ -1,12 +1,10 @@
-interface Character {
-  name: string
-}
+import Character from './character.js'
 
 export default async function* characterGenerator(): AsyncGenerator<Character, void, unknown> {
-  let url = 'https://swapi.dev/api/people'
+  let url: string | null = 'https://swapi.dev/api/people'
 
   while (url) {
-    const response = await fetch(url)
+    const response: Response = await fetch(url)
     const data = await response.json()
 
     for (const characters of data.results) {
